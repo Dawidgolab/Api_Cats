@@ -51,7 +51,6 @@ name = "Dawid"
 print("Welcome " + name)
 
 # 2 - start program
-# password = 123
 
 password = input("Give your password: ")
 if password == Sensitivedata.credentials.password:
