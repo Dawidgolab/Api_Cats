@@ -25,7 +25,7 @@ def get_random_cat():
     r = requests.get(" https://api.thecatapi.com/v1/images/search",
                      headers=Sensitivedata.credentials.headers)
 
-    return get_json_content_from_response(r)
+    return get_json_content_from_response(r)[0]
 
 def add_favoutite_cat(catId,userId):
     catData = {
@@ -43,7 +43,7 @@ def remove_favourite_cat(userId,favouriteCatIdToRemove):
 
 def display_cats(favouriteCats):
     for count,cat in enumerate(favouriteCats,start=1):
-        print(f"My {count} favourite cat: { cat['id'],cat['image']['url']}")
+        print(f"My {count} favourite cat [ id: {cat['id']} address url: {cat['image']['url']} ]")
 
 # 1
 userId = "dav123"
@@ -77,19 +77,19 @@ Select: \n""")
         #random cat get and adding to the favourites
         elif choice == '2':
             randomCat = get_random_cat()
-            print("Randomly selected cat: " , randomCat[0]['url'])
+            print("Randomly selected cat: " , randomCat['url'])
 
             # -> Display on the web site
             displayRandomCatOnTheWebSite = input("Do you want to display this cat on the web site? Y/N \n")
             if displayRandomCatOnTheWebSite.upper() == 'Y':
-                webbrowser.open_new_tab(randomCat[0]['url'])
+                webbrowser.open_new_tab(randomCat['url'])
             else:
                 print("Okej so next question ...")
 
             # -> Add it to favourite
             addChoice = input("Do you want to add it to favoutites? Y/N :\n")
             if addChoice.upper() == 'Y':
-                print(add_favoutite_cat(randomCat[0]['id'],userId))
+                print(add_favoutite_cat(randomCat['id'],userId))
             else:
                 print("So if you dont want to add it then please select new option again ")
                 continue
